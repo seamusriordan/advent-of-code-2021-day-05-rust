@@ -1,4 +1,5 @@
-use crate::grid::{Grid, Line};
+use crate::grid::Grid;
+use crate::line::Line;
 
 pub struct Driver {
     grid: Grid,
@@ -20,7 +21,7 @@ impl Driver {
     }
 
     pub fn get_overlapping_points(&self) -> usize {
-        self.grid.get_points_above(1)
+        self.grid.get_overlapping_points()
     }
 
     pub fn print(&self) {

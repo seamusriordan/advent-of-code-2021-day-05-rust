@@ -1,6 +1,8 @@
 #[cfg(test)]
 mod grid_tests {
-    use crate::grid::{Grid, Line, Point};
+    use crate::grid::Grid;
+    use crate::line::Line;
+    use crate::point::Point;
 
     #[test]
     fn grid_starts_off_empty() {
