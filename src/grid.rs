@@ -41,70 +41,46 @@ impl Grid {
     }
 
     pub fn add_line(&mut self, l: Line) {
-        if l.p1.y == l.p2.y && l.p1.x == l.p2.x {
-            self.grid[l.p1.x][l.p1.y] += 1;
+        let p1: Point;
+        let p2: Point;
+
+        if l.p1.x <= l.p2.x {
+            p1 = l.p1;
+            p2 = l.p2;
+        } else {
+            p1 = l.p2;
+            p2 = l.p1;
         }
 
-        if l.p1.y == l.p2.y && l.p1.x < l.p2.x {
-            for i in l.p1.x..(l.p2.x + 1) {
-                self.grid[i][l.p1.y] += 1;
+        if p1.y == p2.y {
+            for i in p1.x..(p2.x + 1) {
+                self.grid[i][p1.y] += 1;
             }
+            return;
         }
 
-        if l.p1.y == l.p2.y && l.p1.x > l.p2.x {
-            for i in l.p2.x..(l.p1.x + 1) {
-                self.grid[i][l.p1.y] += 1;
+        if p1.x == p2.x {
+            let range;
+            if p1.y < p2.y {
+                range = p1.y..(p2.y + 1);
+            } else {
+                range = p2.y..(p1.y + 1);
             }
-        }
-
-
-        if l.p1.x == l.p2.x && l.p1.y < l.p2.y {
-            for j in l.p1.y..(l.p2.y + 1) {
-                self.grid[l.p1.x][j] += 1;
+            for j in range {
+                self.grid[p1.x][j] += 1;
             }
+            return;
         }
 
-        if l.p1.x == l.p2.x && l.p1.y > l.p2.y {
-            for j in l.p2.y..(l.p1.y + 1) {
-                self.grid[l.p1.x][j] += 1;
-            }
-        }
-
-
-        if l.p1.x < l.p2.x && l.p1.y < l.p2.y {
-            let mut k = 0;
-            while l.p1.x + k <= l.p2.x {
-                self.grid[l.p1.x + k][l.p1.y + k] += 1;
-                k += 1;
-            }
-        }
-
-
-        if l.p1.x > l.p2.x && l.p1.y < l.p2.y {
-            let mut k = 0;
-            while l.p2.x + k <= l.p1.x {
-                self.grid[l.p2.x + k][l.p2.y - k] += 1;
-                k += 1;
-            }
-        }
-
-        if l.p1.x < l.p2.x && l.p1.y > l.p2.y {
-            let mut k = 0;
-            while l.p1.x + k <= l.p2.x {
-                self.grid[l.p1.x + k][l.p1.y - k] += 1;
-                k += 1;
-            }
-        }
-
-
-        if l.p1.x > l.p2.x && l.p1.y > l.p2.y {
-            let mut k = 0;
-            while l.p2.x + k <= l.p1.x {
-                self.grid[l.p2.x + k][l.p2.y + k] += 1;
-                k += 1;
+        for k in 0..(p2.x - p1.x + 1) {
+            if p1.y < p2.y {
+                self.grid[p1.x + k][p1.y + k] += 1;
+            } else {
+                self.grid[p1.x + k][p1.y - k] += 1;
             }
         }
     }
+
 
     pub fn get_points_above(&self, n: i32) -> usize {
         let mut sum = 0;
