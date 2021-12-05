@@ -69,6 +69,41 @@ impl Grid {
                 self.grid[l.p1.x][j] += 1;
             }
         }
+
+
+        if l.p1.x < l.p2.x && l.p1.y < l.p2.y {
+            let mut k = 0;
+            while l.p1.x + k <= l.p2.x {
+                self.grid[l.p1.x + k][l.p1.y + k] += 1;
+                k += 1;
+            }
+        }
+
+
+        if l.p1.x > l.p2.x && l.p1.y < l.p2.y {
+            let mut k = 0;
+            while l.p2.x + k <= l.p1.x {
+                self.grid[l.p2.x + k][l.p2.y - k] += 1;
+                k += 1;
+            }
+        }
+
+        if l.p1.x < l.p2.x && l.p1.y > l.p2.y {
+            let mut k = 0;
+            while l.p1.x + k <= l.p2.x {
+                self.grid[l.p1.x + k][l.p1.y - k] += 1;
+                k += 1;
+            }
+        }
+
+
+        if l.p1.x > l.p2.x && l.p1.y > l.p2.y {
+            let mut k = 0;
+            while l.p2.x + k <= l.p1.x {
+                self.grid[l.p2.x + k][l.p2.y + k] += 1;
+                k += 1;
+            }
+        }
     }
 
     pub fn get_points_above(&self, n: i32) -> usize {

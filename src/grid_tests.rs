@@ -58,7 +58,7 @@ mod grid_tests {
     }
 
     #[test]
-    fn diagonal_lines_do_nothing() {
+    fn diagonal_lines_get_added() {
         let mut grid = Grid::new(2, 2);
 
         let line = Line {
@@ -68,9 +68,60 @@ mod grid_tests {
 
         grid.add_line(line);
 
-        assert_eq!(0, grid.get_value(0, 0));
+        assert_eq!(1, grid.get_value(0, 0));
         assert_eq!(0, grid.get_value(1, 0));
         assert_eq!(0, grid.get_value(0, 1));
+        assert_eq!(1, grid.get_value(1, 1));
+    }
+
+    #[test]
+    fn reverse_diagonal_lines_get_added() {
+        let mut grid = Grid::new(2, 2);
+
+        let line = Line {
+            p1: Point { x: 1, y: 1 },
+            p2: Point { x: 0, y: 0 },
+        };
+
+        grid.add_line(line);
+
+        assert_eq!(1, grid.get_value(0, 0));
+        assert_eq!(0, grid.get_value(1, 0));
+        assert_eq!(0, grid.get_value(0, 1));
+        assert_eq!(1, grid.get_value(1, 1));
+    }
+
+    #[test]
+    fn backwards_diagonal_lines_get_added() {
+        let mut grid = Grid::new(2, 2);
+
+        let line = Line {
+            p1: Point { x: 1, y: 0 },
+            p2: Point { x: 0, y: 1 },
+        };
+
+        grid.add_line(line);
+
+        assert_eq!(0, grid.get_value(0, 0));
+        assert_eq!(1, grid.get_value(1, 0));
+        assert_eq!(1, grid.get_value(0, 1));
+        assert_eq!(0, grid.get_value(1, 1));
+    }
+
+    #[test]
+    fn backwards_reverse_diagonal_lines_get_added() {
+        let mut grid = Grid::new(2, 2);
+
+        let line = Line {
+            p1: Point { x: 0, y: 1 },
+            p2: Point { x: 1, y: 0 },
+        };
+
+        grid.add_line(line);
+
+        assert_eq!(0, grid.get_value(0, 0));
+        assert_eq!(1, grid.get_value(1, 0));
+        assert_eq!(1, grid.get_value(0, 1));
         assert_eq!(0, grid.get_value(1, 1));
     }
 

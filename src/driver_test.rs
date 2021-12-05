@@ -50,6 +50,6 @@ mod driver_tests {
 
         driver.print();
 
-        assert_eq!(5, driver.get_overlapping_points());
+        assert_eq!(12, driver.get_overlapping_points());
     }
 }
